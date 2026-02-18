@@ -1,0 +1,10 @@
+[package]
+name = "bytebuf_core"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+test = false
+
+[dependencies]
+paste = "1.0"

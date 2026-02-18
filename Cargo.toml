@@ -1,0 +1,3 @@
+[workspace]
+resolver = "3"
+members = ["bytebuf", "bytebuf_core", "bytebuf_derive", "bytebuf_test"]

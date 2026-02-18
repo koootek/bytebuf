@@ -1,0 +1,14 @@
+[package]
+name = "bytebuf"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+test = false
+
+[dependencies]
+bytebuf_core = { path = "../bytebuf_core" }
+bytebuf_derive = { path = "../bytebuf_derive", optional = true }
+
+[features]
+derive = ["bytebuf_derive"]

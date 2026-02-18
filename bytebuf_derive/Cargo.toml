@@ -1,0 +1,14 @@
+[package]
+name = "bytebuf_derive"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "bytebuf_derive"
+proc-macro = true
+test = false
+
+[dependencies]
+proc-macro2 = "1"
+syn = "2"
+quote = "1"

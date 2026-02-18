@@ -1,0 +1,7 @@
+[package]
+name = "bytebuf_test"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bytebuf = { path = "../bytebuf", features = ["derive"] }
