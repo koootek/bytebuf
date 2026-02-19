@@ -25,15 +25,13 @@ pub fn derive_into_bytes(input: TokenStream) -> TokenStream {
             #ty::into_bytes(self.#ident, buf)
         }
     });
-
-    let code = quote! {
+    TokenStream::from(quote! {
         impl bytebuf::IntoBytes for #name {
             fn into_bytes(self, buf: &mut bytebuf::ByteBuf) {
                 #(#into_bytes_fields;)*
             }
         }
-    };
-    TokenStream::from(code)
+    })
 }
 
 #[proc_macro_derive(FromBytes)]
@@ -51,16 +49,14 @@ pub fn derive_from_bytes(input: TokenStream) -> TokenStream {
                 .into();
         }
     };
-    let mut i = 0;
     let from_bytes_fields = fields.iter().map(|f| {
         let ident = f.ident.as_ref().unwrap();
         let ty = &f.ty;
-        i += 1;
         quote! {
             #ident: #ty::from_bytes(buf)?
         }
     });
-    let code = quote! {
+    TokenStream::from(quote! {
         impl bytebuf::FromBytes for #name {
             fn from_bytes(buf: &mut bytebuf::ByteBuf) -> Option<Self> {
                 Some(Self {
@@ -68,6 +64,5 @@ pub fn derive_from_bytes(input: TokenStream) -> TokenStream {
                 })
             }
         }
-    };
-    TokenStream::from(code)
+    })
 }
