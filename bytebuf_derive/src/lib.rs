@@ -3,7 +3,7 @@ use quote::quote;
 use syn::{Data, DeriveInput, Field, Fields, parse_macro_input};
 
 #[proc_macro_derive(IntoBytes)]
-pub fn derive_into_raw(input: TokenStream) -> TokenStream {
+pub fn derive_into_bytes(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
 
@@ -37,7 +37,7 @@ pub fn derive_into_raw(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro_derive(FromBytes)]
-pub fn derive_from_raw(input: TokenStream) -> TokenStream {
+pub fn derive_from_bytes(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
     let fields = match input.data {
