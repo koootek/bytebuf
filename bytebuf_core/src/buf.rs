@@ -70,7 +70,7 @@ impl ByteBuf {
     }
 
     pub fn read_bytes(&mut self, len: usize) -> Option<&[u8]> {
-        if self.position + len >= self.data.len() {
+        if self.position + len > self.data.len() {
             return None;
         }
 
