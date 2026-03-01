@@ -89,8 +89,14 @@ impl ByteBuf {
         Some(byte)
     }
 
-    pub fn read_bool(&mut self) -> Option<bool> {
-        Some(self.read_u8()? == 1)
+    pub fn read_i8(&mut self) -> Option<i8> {
+        if self.position >= self.data.len() {
+            return None;
+        }
+
+        let byte = self.data[self.position] as i8;
+        self.position += 1;
+        Some(byte)
     }
 
     pub fn read_value<T: crate::FromBytes>(&mut self) -> Option<T> {
@@ -105,8 +111,8 @@ impl ByteBuf {
         self.data.push(value);
     }
 
-    pub fn write_bool(&mut self, value: bool) {
-        self.write_u8(if value { 1 } else { 0 });
+    pub fn write_i8(&mut self, value: i8) {
+        self.data.push(value as u8);
     }
 
     pub fn write_value<T: crate::IntoBytes>(&mut self, value: T) {
@@ -201,6 +207,30 @@ macro_rules! impl_primitive {
         }
         }
     };
+}
+
+impl crate::FromBytes for u8 {
+    fn from_bytes(buf: &mut ByteBuf) -> Option<Self> {
+        buf.read_u8()
+    }
+}
+
+impl crate::IntoBytes for u8 {
+    fn into_bytes(self, buf: &mut ByteBuf) {
+        buf.write_u8(self);
+    }
+}
+
+impl crate::FromBytes for i8 {
+    fn from_bytes(buf: &mut ByteBuf) -> Option<Self> {
+        buf.read_i8()
+    }
+}
+
+impl crate::IntoBytes for i8 {
+    fn into_bytes(self, buf: &mut ByteBuf) {
+        buf.write_i8(self);
+    }
 }
 
 impl_primitive!(u16, 2);
